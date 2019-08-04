@@ -8,6 +8,8 @@ public:
 
 		if (x > 0) {
 			for (; x > 0; x /= 10) {
+				// x % 10 extracts the least significant bit 
+				// and concatinate to the end of the int y
 				if ((y = y * 10 + (x % 10)) > INT_MAX)
 					return 0;
 			}
