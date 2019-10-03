@@ -1,27 +1,54 @@
-#include<iostream>
-
+#include "today.h"
+#include <iostream>
 using namespace std;
 
+int yyyy;
+int mm;
+int dd;
+
 int main() {
-	while (true) {
-		int n, m;
-		cin >> n >> m;
+	int cyy = ThisYear();
+	int cmm = ThisMonth();
+	int cdd = ThisDay();
 
-		if (n == 0) break;
+	cout << "Please enter your birth date(yyyy mm dd) :";
+	cin >> yyyy >> mm >> dd;
 
-		if (n == 1) {
-			if (m == 1)
-				cout << n << " " << m << " " << "Multiple" << endl;
-			else
-				cout << n << " " << m << " " << "Impossible" << endl;
-			continue;
-		}
+	if (yyyy < 1990) {
+		cout << "Year not in range!!\n";
+	}
+	else if (1 > mm || mm > 12) {
+		cout << "Invalid date!!\n";
+	}
+	else if (1 > dd || dd > 32) {
+		cout << "Invalid date!!\n";
+	}
 
-		if ((m - n) % (n - 1) == 0) {
-			cout << n << " " << m << " " << ((m - n) / (n - 1)) * n + 1 + n << endl;
-		}
-		else {
-			cout << n << " " << m << " " << "Impossible" << endl;
+	else if (mm == 1 || mm == 3 || mm == 5 || mm == 7 || mm == 8 || mm == 10 || mm == 12) {
+		if (1 > dd || dd > 31) {
+			cout << "Invalid date!!\n";
 		}
 	}
+	else if (mm == 4 || mm == 6 || mm = 9 || mm == 11) {
+		if (1 > dd || dd > 30) {
+			cout << "Invalid date!!\n";
+		}
+	}
+	else if (yyyy > cyy || mm > cmm || dd > cdd) {
+		cout << "Invalid date!!\n";
+	}
+	else if (yyyy / 4.0 != yyyy / 4) {
+		if (mm == 2) {
+			if (1 > dd || dd >= 29) {
+				cout << "You are not born yet!!\n";
+			}
+		}
+	}
+	else {
+		cout << "Your birthday was on" << dd << mm << yyyy << ".\n";
+	}
+
+
+
+	return 0;
 }
