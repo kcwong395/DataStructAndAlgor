@@ -6,7 +6,7 @@ public:
 			return grid[row][col];
 		}
 		// reach the bottom row
-		if (row >= grid.size() - 1 && col < grid[row].size() - 1) {
+		else if (row >= grid.size() - 1 && col < grid[row].size() - 1) {
 			return grid[row][col] + sum(grid, row, col + 1);
 		}
 		// reach the rightmost column
