@@ -207,3 +207,71 @@ I think there may be some further improvements available:
   * It requires modification in recurrence relationship
 * translation into other programming languages i.e. Java, Python, JavaScript
 * maybe you can model it as a directed graph and compute the answer with Dijkstra Algorithm
+
+### Backtracking (See Possible Extensions#1)
+
+> ``` C++
+> class Solution {
+> public:
+> 	int minPathSum(vector<vector<int>>& grid) {
+> 		// dynamically allocate of a 2-d int array
+> 		int m = grid.size(), n = grid[0].size();
+>         
+>         if(m == 0 || n == 0) return 0;
+>         
+> 		int** ans = new int*[m];
+> 		for (int i = 0; i < m; i++) {
+> 			ans[i] = new int[n];
+> 		}
+> 		// compute the least cost to reach each element
+>      	// ans[i][j] = the least cost to reach element at i, j
+> 		for (int i = 0; i < m; i++) {
+> 			for (int j = 0; j < n; j++) {
+>              	// starting point
+> 				if (i == 0 && j == 0) {
+> 					ans[0][0] = grid[0][0];
+> 				}
+>              	// first row
+> 				else if (i == 0) {
+>                  	// if it is in first row, it can only be accessed by its left elements
+>                  	// to reach this element, the cost is its own cost + the cost to reach its left element
+> 					ans[i][j] = grid[i][j] + ans[i][j - 1];
+> 				}
+>              	// first column
+> 				else if (j == 0) {
+> 					ans[i][j] = grid[i][j] + ans[i - 1][j];
+> 				}
+> 				else {
+>                  	// it can be accessed either by upper element or left element, so select the minimized one
+> 					ans[i][j] = grid[i][j] + min(ans[i - 1][j], ans[i][j - 1]);
+> 				}
+> 			}
+> 		}
+>         
+> 		int i = m - 1, j = n - 1;
+>         while(i >= 0 || j >= 0){
+>             if(i == 0 && j == 0){
+>                 cout << "(" << i-- << "," << j-- << ")" << endl;
+>             }
+>             else if(i == 0){
+>                 cout << "(" << i << "," << j-- << ") ← ";
+>             }
+>             else if(j == 0){
+>                 cout << "(" << i-- << "," << j << ") ← ";
+>             }
+>             else {
+>                 if(ans[i - 1][j] > ans[i][j - 1]){
+>                     cout << "(" << i << "," << j-- << ") ← ";
+>                 } 
+>                 else {
+>                     cout << "(" << i-- << "," << j << ") ← ";
+>                 }
+>             }
+>         }
+> 
+> 		// ans donates the least cost to reach the bottom right element
+> 		return ans[m - 1][n - 1];
+> 	}
+> };
+> ```
+
