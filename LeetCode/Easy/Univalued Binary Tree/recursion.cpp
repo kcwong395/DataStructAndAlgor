@@ -9,15 +9,14 @@
  */
 class Solution {
 public:
-	bool tra(TreeNode* root, int val) {
+	bool isUnivalTree(TreeNode* root) {
+
 		if (root == nullptr) return true;
 
-		if (root->val != val) return false;
+		if (root->left != nullptr && root->left->val != root->val) return false;
 
-		return tra(root->left, val) && tra(root->right, val);
-	}
+		if (root->right != nullptr && root->right->val != root->val) return false;
 
-	bool isUnivalTree(TreeNode* root) {
-		return tra(root, root->val);
+		return isUnivalTree(root->left) && isUnivalTree(root->right);
 	}
 };
